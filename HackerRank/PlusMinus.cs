@@ -4,13 +4,13 @@ namespace HackerRank
 {
     public class PlusMinus
     {
-        public static string PlusMinusV1(List<int> arrayOfIntegers) {
-            
-            decimal negatives = 0;
-            decimal positives = 0;
-            decimal zeros = 0;
+        private decimal negatives = 0;
+        private decimal positives = 0;
+        private decimal zeros = 0;
+        private int total = 0;
 
-            var total = arrayOfIntegers.Count;
+        public string Run(List<int> arrayOfIntegers) {
+            this.total = arrayOfIntegers.Count;
 
             foreach (int number in arrayOfIntegers)
                 if(number < 0)
@@ -20,6 +20,10 @@ namespace HackerRank
                 else
                     positives++;
 
+            return this.FormatOutput();
+        }
+
+        public string FormatOutput() {
             return $"{(positives/total).ToString("##0.000000")}\n{(negatives/total).ToString("##0.000000")}\n{(zeros/total).ToString("##0.000000")}";
         }
     }

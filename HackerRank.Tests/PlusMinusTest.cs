@@ -9,10 +9,11 @@ namespace HackerRank.Tests
     public class PlusMinusTest
     {
         [Test]
-        public void PlusMinus_ShouldPass() {
+        public void PlusMinus_Run_ShouldPass() {
             
             List<int> arrayOfIntegers = new List<int>() { -1, -2, 0, 2, 1 };
-            string result = PlusMinus.PlusMinusV1(arrayOfIntegers);
+            PlusMinus plusMinusChallenge = new PlusMinus();
+            string result = plusMinusChallenge.Run(arrayOfIntegers);
 
             string[] results = result.Split("\n");
             
