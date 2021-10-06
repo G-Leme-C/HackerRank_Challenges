@@ -12,9 +12,9 @@ namespace HackerRank.Tests
         [TestCase("12:01:00PM", "12:01:00")]
         public void ConvertToMilitaryTime_ShouldConvertSuccessfully(string inputTime, string expectedOutput) {
             
-            TimeConversion conversion = new TimeConversion();
+            TimeConversion conversion = new TimeConversion(inputTime);
 
-            var output = conversion.ConvertToMilitaryTime(inputTime);
+            var output = conversion.ConvertToMilitaryTime();
 
             Assert.AreEqual(expectedOutput, output);
         }

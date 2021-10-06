@@ -2,28 +2,64 @@ namespace HackerRank
 {
     public class TimeConversion
     {
-        
-        public string ConvertToMilitaryTime(string inputTime) {
+        private string _rawInputTime;
+        private string _middayMarker;
+        private string[] _timeParts;
 
-            var middayMarker = inputTime.Substring(inputTime.Length - 2, 2);
-            inputTime = inputTime.Remove(inputTime.Length - 2, 2);
+        private const string AM = "AM";
+        private const string PM = "PM";
 
-            var timeParts = inputTime.Split(":");
+        public TimeConversion(string inputTime)
+        {
+            SetRawInputTime(inputTime);
+        }
 
-            if(middayMarker.Equals("PM")) 
-            {
-                if(int.TryParse(timeParts[0], out int hours)) 
-                    if(hours < 12)
-                        timeParts[0] = (hours + 12).ToString("00");
-            }
-            else 
-            {
-                if(int.TryParse(timeParts[0], out int hours)) 
-                    if(hours == 12)
-                        timeParts[0] = (hours - 12).ToString("00");
-            }
+        private void SetRawInputTime(string inputTime) {
+            _rawInputTime = inputTime;
+        }
 
-            return string.Join(':', timeParts);
+        public string ConvertToMilitaryTime() {
+            GetMiddayMarker();
+            GetTimeParts();            
+
+            if(IsPmTime()) 
+                ConvertPmHoursToMilitary();
+            else if(IsAmTime())
+                ConvertAmHoursToMilitary();
+                
+            return FormatOutputTime();
+        }
+
+        private bool IsPmTime() {
+            return _middayMarker.Equals(PM);
+        }
+
+        private void ConvertPmHoursToMilitary() {
+            if(int.TryParse(_timeParts[0], out int hours)) 
+                if(hours < 12)
+                    _timeParts[0] = (hours + 12).ToString("00");
+        }
+
+        private void ConvertAmHoursToMilitary() {
+            if(int.TryParse(_timeParts[0], out int hours)) 
+                if(hours == 12)
+                    _timeParts[0] = (hours - 12).ToString("00");
+        }
+
+        private bool IsAmTime() {
+            return _middayMarker.Equals(AM);
+        }
+        private void GetMiddayMarker() {
+            _middayMarker = _rawInputTime.Substring(_rawInputTime.Length - 2, 2);
+        }
+
+        private void GetTimeParts() {
+            var rawTime = _rawInputTime.Remove(_rawInputTime.Length - 2, 2);
+            _timeParts = rawTime.Split(":");
+        }
+
+        private string FormatOutputTime() {
+            return string.Join(':', _timeParts);
         }
 
 
